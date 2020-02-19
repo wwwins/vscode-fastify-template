@@ -1,0 +1,17 @@
+{
+  "name": "isobar-app",
+  "version": "1.0.0",
+  "description": "isobar nodejs app",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "author": "jacky.huang@isobar.com",
+  "license": "MIT",
+  "dependencies": {
+    "const": "^1.0.0",
+    "dotenv": "^8.2.0",
+    "fastify": "^2.12.0",
+    "fastify-static": "^2.6.0"
+  }
+}

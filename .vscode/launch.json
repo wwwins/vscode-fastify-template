@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type":"node",
+            "request": "launch",
+            "name": "Launch isobar app in Docker",
+            "program": "${workspaceFolder}/src/app.js"
+        }
+    ]
+}

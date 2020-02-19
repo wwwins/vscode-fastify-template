@@ -1,0 +1,12 @@
+#
+# Simple dockerignore file for nodejs
+#
+
+.git
+.gitignore
+.DS_Store
+.dockerignore
+*.swp
+.*.swp
+package-lock.json
+node_modules

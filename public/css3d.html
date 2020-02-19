@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<html>
+<head>
+<style>
+
+/*
+ 嘗試用 css 3d 做出旋轉木馬的效果
+ 目標:儘可能使用 css
+*/
+
+.flex-container {
+  display: flex;
+  background-color: LightGrey;
+}
+
+/*
+.scene:hover {
+  position: absolute;
+  transform: translateZ(-300px) rotateY(-45deg);
+  transform-style: preserve-3d;
+}
+*/
+
+/*
+ 呈現的視野，presective 要加在整個主場景的上一層(parent)
+ perspective: 1300px;
+*/
+.sceneView {
+  position: relative;
+  height: 600px;
+  width: 700px;
+  border: 2px solid blue;
+  margin-top: 200px;
+  margin-left: 400px;
+  perspective: 1300px;
+//  background-color: LightGrey;
+}
+
+/* 
+ 3D 主場景，所有的 3D 物件都在此場景下，要加上
+ transform-style: preserve-3d;
+ */
+.sceneContainer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform: translateZ(-1000px);
+//  transform: rotateX(90deg);
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+/* 卡片共通屬性 */
+.card {
+  height: 600px;
+  width: 700px;
+  border: 2px solid Green;
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  transition: filter 1s;
+  /* animation-fill-mode: forwards; */
+}
+
+/* 各個卡片分別設定旋轉角度，顏色及位置 */
+.card1 {
+  transform: rotateY(0deg) translateZ(1000px);
+  background-color: hsla(  0, 100%, 64%, 0.8);
+}
+.card2 {
+  transform: rotateY(45deg) translateZ(1000px);
+  background-color: hsla(  30, 100%, 64%, 0.8);
+}
+.card3 {
+  transform: rotateY(90deg) translateZ(1000px);
+  background-color: hsla(  60, 100%, 64%, 0.8);
+}
+.card4 {
+  transform: rotateY(135deg) translateZ(1000px);
+  background-color: hsla(  90, 100%, 64%, 0.8);
+}
+.card5 {
+  transform: rotateY(180deg) translateZ(1000px);
+  background-color: hsla(  120, 100%, 64%, 0.8);
+}
+.card6 {
+  transform: rotateY(225deg) translateZ(1000px);
+  background-color: hsla(  150, 100%, 64%, 0.8);
+}
+.card7 {
+  transform: rotateY(270deg) translateZ(1000px);
+  background-color: hsla(  180, 100%, 64%, 0.8);
+}
+.card8 {
+  transform: rotateY(315deg) translateZ(1000px);
+  background-color: hsla(  210, 100%, 64%, 0.8);
+}
+</style>
+
+</head>
+<body>
+
+<div class="sceneView">
+  <div class="sceneContainer">
+    <div class="card card1">1<img src="images/img_700x540.jpg"></div>
+    <div class="card card2">2<img src="images/img_700x540.jpg"></div>
+    <div class="card card3">3<img src="images/img_700x540.jpg"></div>
+    <div class="card card4">4<img src="images/img_700x540.jpg"></div>
+    <div class="card card5">5<img src="images/img_700x540.jpg"></div>
+    <div class="card card6">6<img src="images/img_700x540.jpg"></div>
+    <div class="card card7">7<img src="images/img_700x540.jpg"></div>
+    <div class="card card8">8<img src="images/img_700x540.jpg"></div>
+    <!--
+    -->
+  </div>
+</div>
+
+<button class="btn-left">﹤﹤﹤</button>
+<button class="btn-right">﹥﹥﹥</button>
+
+<script>
+// 總共有幾張卡片
+const numOfCard = 8;
+let idx = 0;
+cardAddFilter();
+
+// 旋轉整個 conatiner，要注意是先平移再旋轉
+function rotateScene() {
+  let deg = idx * 360/numOfCard;
+  let sceneContainer = document.querySelector('.sceneContainer');
+  sceneContainer.style.transform = 'translateZ(-1000px) rotateY('+deg+'deg)';
+  cardAddFilter();
+}
+
+// 加上景深效果
+// 旋轉後需針對每張卡調整 blur
+function cardAddFilter() {
+    let i = (idx > 0) ? (1+numOfCard - Math.abs(idx)%numOfCard) : (1 + Math.abs(idx)%numOfCard);
+    // console.log('i:'+i, idx);
+    let cards = document.querySelectorAll('.card');
+    cards.forEach(element => {
+        // console.log(element);
+        element.style.filter = 'blur(10px)';
+        if (element.innerText==i) {
+            element.style.filter = 'blur(0px)';
+        }
+    });
+}
+
+let btnL = document.querySelector('.btn-left');
+btnL.addEventListener( 'click', function() {
+  idx++;
+  rotateScene();
+
+});
+
+let btnR = document.querySelector('.btn-right');
+btnR.addEventListener( 'click', function() {
+  idx--;
+  rotateScene();
+
+});
+
+</script>
+
+</body>
+</html>
